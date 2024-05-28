@@ -589,14 +589,15 @@ void ADungeonGenerator::OnStateEnd(EGenerationState State)
 	case EGenerationState::Load:
 		DungeonLog_Info("======= End Load All Levels =======");
 
-		// Try to rebuild the navmesh
-		nav = UNavigationSystemV1::GetCurrent(GetWorld());
-		if (nullptr != nav)
-		{
-			DungeonLog_Info("Rebuild navmesh");
-			nav->CancelBuild();
-			nav->Build();
-		}
+		// Manual rebuilding can cause unwanted behaviour
+		// Use engine's "Rebuild at Runtime" instead
+		// nav = UNavigationSystemV1::GetCurrent(GetWorld());
+		// if (nullptr != nav)
+		// {
+		// 	DungeonLog_Info("Rebuild navmesh");
+		// 	nav->CancelBuild();
+		// 	nav->Build();
+		// }
 
 		// Invoke Post Generation Event when initialization is done
 		OnPostGeneration();
